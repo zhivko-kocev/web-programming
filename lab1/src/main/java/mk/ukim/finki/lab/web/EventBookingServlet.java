@@ -12,16 +12,22 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import mk.ukim.finki.lab.service.EventBookingService;
 
 @WebServlet(name = "EventBookingServlet", urlPatterns = { "/eventBooking" })
 public class EventBookingServlet extends HttpServlet {
 
     private final SpringTemplateEngine engine;
-    String event = "undefined";
-    Integer tickets = 0;
+    private final EventBookingService bookings;
+    private String eventName = null;
+    private String attendeeName = null;
+    private String address = null;
+    private int tickets = 0;
 
-    public EventBookingServlet(SpringTemplateEngine engine) {
+    public EventBookingServlet(SpringTemplateEngine engine, EventBookingService bookings) {
         this.engine = engine;
+        this.bookings = bookings;
     }
 
     @Override
@@ -32,19 +38,43 @@ public class EventBookingServlet extends HttpServlet {
 
         WebContext context = new WebContext(exchange);
 
-        context.setVariable("event", event);
-        context.setVariable("tickets", tickets);
+        String text = req.getParameter("text");
+
+        HttpSession session = req.getSession();
+
+        context.setVariable("name", session.getAttribute("name"));
+        context.setVariable("numTickets", session.getAttribute("numTickets"));
+        context.setVariable("selectedEvent", session.getAttribute("selectedEvent"));
+        context.setVariable("addr", session.getAttribute("addr"));
+
+        if (text == null) {
+            context.setVariable("bookings", bookings.listAll());
+
+            engine.process("bookingConfirmation", context, resp.getWriter());
+            return;
+        }
+        context.setVariable("bookings", bookings.searchBookings(text));
 
         engine.process("bookingConfirmation", context, resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.event = req.getParameter("selectedEvent");
-        this.tickets = Integer.parseInt(req.getParameter("numTickets"));
+
+        attendeeName = req.getParameter("name");
+        eventName = req.getParameter("selectedEvent");
+        address = req.getParameter("addr");
+        tickets = Integer.parseInt(req.getParameter("numTickets"));
+
+        HttpSession session = req.getSession();
+        session.setAttribute("name", attendeeName);
+        session.setAttribute("selectedEvent", eventName);
+        session.setAttribute("addr", address);
+        session.setAttribute("numTickets", tickets);
+
+        bookings.placeBooking(eventName, attendeeName, address, tickets);
 
         resp.sendRedirect("/eventBooking");
-
     }
 
 }
