@@ -36,9 +36,9 @@ public class EventRepository {
 
         if (text.chars().allMatch(c -> Character.isDigit(c))) {
             return events.stream()
-                    .filter(event -> event.getName().contains(text) || event.getDescription().contains(text)
-                            || event.getPopularityScore() > Integer.parseInt(text))
-                    .toList();
+            .filter(event -> event.getName().contains(text) || event
+            .getDescription().contains(text)|| event.getPopularityScore() > Integer.parseInt(text))
+            .toList();
         }
 
         return events.stream()

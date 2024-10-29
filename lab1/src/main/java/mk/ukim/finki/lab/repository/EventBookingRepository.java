@@ -26,7 +26,8 @@ public class EventBookingRepository {
 
     public List<EventBooking> searchBookings(String text) {
         return bookings.stream()
-                .filter(booking -> booking.getAttendeeName().contains(text) || booking.getEventName().contains(text))
+                .filter(booking -> booking.getAttendeeName().contains(text) ||
+                        booking.getEventName().contains(text))
                 .toList();
     }
 }

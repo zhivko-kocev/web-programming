@@ -20,10 +20,6 @@ public class EventBookingServlet extends HttpServlet {
 
     private final SpringTemplateEngine engine;
     private final EventBookingService bookings;
-    private String eventName = null;
-    private String attendeeName = null;
-    private String address = null;
-    private int tickets = 0;
 
     public EventBookingServlet(SpringTemplateEngine engine, EventBookingService bookings) {
         this.engine = engine;
@@ -61,10 +57,10 @@ public class EventBookingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        attendeeName = req.getParameter("name");
-        eventName = req.getParameter("selectedEvent");
-        address = req.getParameter("addr");
-        tickets = Integer.parseInt(req.getParameter("numTickets"));
+        String attendeeName = req.getParameter("name");
+        String eventName = req.getParameter("selectedEvent");
+        String address = req.getParameter("addr");
+        Integer tickets = Integer.parseInt(req.getParameter("numTickets"));
 
         HttpSession session = req.getSession();
         session.setAttribute("name", attendeeName);

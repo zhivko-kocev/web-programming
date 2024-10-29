@@ -53,7 +53,7 @@
       </form>
       <ul>
         <li th:each="booking : ${bookings}">
-          <div th:text="'Event name: '+${booking.eventName}+' Attendee Name: '+${booking.attendeeName}+' Address: '+${booking.attendeeAddress}+' Tickets Number '+${booking.numberOfTickets}"></div>
+          <div th:text="'Event name: '+${booking.eventName}+' | Attendee Name: '+${booking.attendeeName}+' | Address: '+${booking.attendeeAddress}+' | Tickets Number '+${booking.numberOfTickets}"></div>
         </li> 
       </ul>
     </div>
