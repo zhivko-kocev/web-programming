@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+</head>
+<body>
+    <form action="/events/add" method="post">
+        <h2>Name:</h2>
+        <input type="text" name="name" th:value="${event != null ? event.name : ''}">
+        
+        <h2>Description:</h2>
+        <input type="text" name="description" th:value="${event != null ? event.description : ''}">
+        
+        <h2>Popularity score:</h2>
+        <input type="number" step="0.01" min="1" max="10" name="popularityScore" th:value="${event != null ? event.popularityScore : 0}">
+        
+        <h2>Location:</h2>
+        <select name="locationId">
+            <option th:each="location : ${locations}" 
+                    th:value="${event != null} ? ${event.location.id} : ${location.id}" 
+                    th:text="${location.address + ', ' + location.name + ' - ' + location.capacity + ' capacity'}">
+            </option>
+        </select>
+        <input type="hidden" th:value="${update != null}? ${true}:${false}" name="update">
+        <input type="hidden" th:value="${event != null}? ${event.id}:''" name="id">
+
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Event Booking page - Welcome and choose an Event</title>
+        <style type="text/css">
+            body {
+                width: 800px;
+                margin: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+             <h1>Welcome to our Event Booking App</h1>
+        </header>
+        <h2>Search events:</h2>
+            <form action="/events" method="get">
+                <input type="search" name="text">
+                <input type="submit" value="Search">
+            </form>
+            <th:block th:if="${error}">
+                <p style="color: red;">Please fill all the fields!</p>
+            </th:block>
+        <main style="display: flex;">
+            
+            <!-- Display radio buttons for each event,
+                    the value should be the event name 
+                    and the displayed text should be Name: <event_name>, Description: <event_description>, Rating: <popularity_score> -->
+            <form action="/bookings" method="post">
+                <h2>Enter your name:</h2>
+                <input type="text" name="attendee">
+                <h2>Choose an event:</h2>
+                <ul>
+                    <li th:each="event : ${events}">
+                        <input type="radio" th:value="${event.id}" th:id="${event.id}" name="event">
+                        <span th:text="${event.name}">Event Name</span> - 
+                        <span th:text="${event.description}">Event Description</span> - 
+                        <span th:text="${event.popularityScore}">Event Score</span> -
+                        <span th:text="${event.location.name}">Event Location</span>
+                    </li>
+                </ul>
+                <h2>Choose number of tickets:</h2>
+                <input type="number" name="tickets" min="1" max="10"><br/>
+                <br/>
+                <input type="submit" value="Submit">
+            </form>
+            <div style="display: flex;flex-direction: column;position: absolute;right: 10px;top: 10px;border: 1px solid black;padding: 10px;">
+                <div th:each="event : ${events}" >
+                    <span th:text="${event.name}">Event Name</span> - 
+                    <span th:text="${event.popularityScore}">Event Score</span>                    <form th:action="@{'/events/edit/{id}' (id=${event.id})}"
+                    th:method="PUT" style="display: inline-block;">
+                    <button type="submit">Edit</button>
+                    </form>
+                    <form th:action="@{'/events/delete/{id}' (id=${event.id})}"
+                    th:method="DELETE" style="display: inline-block;">
+                    <button type="submit">Delete</button>
+                    </form>
+                </div>
+                <a href="/events/add">Add Event</a>
+            </div>
+        </main>
+    </body>
+</html>
