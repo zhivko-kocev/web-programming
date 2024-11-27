@@ -52,6 +52,7 @@ public class EventController {
             @RequestParam String description,
             @RequestParam Double popularityScore,
             @RequestParam Long locationId,
+            @RequestParam Long numCards,
             @RequestParam Boolean update,
             @RequestParam(required = false) Long id) {
 
@@ -62,11 +63,11 @@ public class EventController {
         Location location = this.locations.findById(locationId).get();
 
         if (update) {
-            this.events.updateEvent(id, name, description, popularityScore, location);
+            this.events.updateEvent(id, name, description, popularityScore, location, numCards);
             return "redirect:/events";
         }
 
-        this.events.createEvent(name, description, popularityScore, location);
+        this.events.createEvent(name, description, popularityScore, location, numCards);
 
         return "redirect:/events";
     }

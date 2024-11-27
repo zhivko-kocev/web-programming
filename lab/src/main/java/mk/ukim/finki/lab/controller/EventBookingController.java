@@ -89,6 +89,10 @@ public class EventBookingController {
 
         Event event = this.events.findById(Long.parseLong(eventId)).get();
         EventBooking booking = new EventBooking(event, name, ipAddr, Long.parseLong(ticketsNum));
+        if ((event.getNumCards() - Long.parseLong(ticketsNum)) < 0) {
+            return "redirect:/events?error=1";
+        }
+        event.setNumCards(event.getNumCards() - Long.parseLong(ticketsNum));
         session.setAttribute("booking", booking);
 
         return "redirect:/bookings";

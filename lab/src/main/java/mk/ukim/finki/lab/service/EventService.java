@@ -12,9 +12,10 @@ public interface EventService {
 
     Optional<Event> findById(Long id);
 
-    Event createEvent(String name, String description, Double popularityScore, Location location);
+    Event createEvent(String name, String description, Double popularityScore, Location location, Long numCards);
 
-    Event updateEvent(Long id, String name, String description, Double popularityScore, Location location);
+    Event updateEvent(Long id, String name, String description, Double popularityScore, Location location,
+            Long numCards);
 
     boolean removeEvent(Long id);
 

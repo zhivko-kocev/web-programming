@@ -39,7 +39,8 @@ public class EventRepository {
         return event;
     }
 
-    public Event updateEvent(Long id, String name, String description, Double popularityScore, Location location) {
+    public Event updateEvent(Long id, String name, String description, Double popularityScore, Location location,
+            Long numCards) {
 
         Event toUpdate = this.events
                 .stream()
@@ -52,6 +53,7 @@ public class EventRepository {
             toUpdate.setDescription(description);
             toUpdate.setLocation(location);
             toUpdate.setPopularityScore(popularityScore);
+            toUpdate.setNumCards(numCards);
         }
 
         return toUpdate;

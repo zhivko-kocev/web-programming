@@ -47,7 +47,9 @@
             <div style="display: flex;flex-direction: column;position: absolute;right: 10px;top: 10px;border: 1px solid black;padding: 10px;">
                 <div th:each="event : ${events}" >
                     <span th:text="${event.name}">Event Name</span> - 
-                    <span th:text="${event.popularityScore}">Event Score</span>                    <form th:action="@{'/events/edit/{id}' (id=${event.id})}"
+                    <span th:text="${event.popularityScore}">Event Score</span> - Available tickets:  
+                    <span th:text="${event.numCards}">Cards</span>                  
+                    <form th:action="@{'/events/edit/{id}' (id=${event.id})}"
                     th:method="PUT" style="display: inline-block;">
                     <button type="submit">Edit</button>
                     </form>
