@@ -14,10 +14,11 @@ public interface EventService {
 
     Event createEvent(String name, String description, Double popularityScore, Location location, Long numCards);
 
-    Event updateEvent(Long id, String name, String description, Double popularityScore, Location location,
-            Long numCards);
+    // Event updateEvent(Long id, String name, String description, Double
+    // popularityScore, Location location,
+    // Long numCards);
 
     boolean removeEvent(Long id);
 
-    List<Event> searchEvents(String text);
+    // List<Event> searchEvents(String text);
 }

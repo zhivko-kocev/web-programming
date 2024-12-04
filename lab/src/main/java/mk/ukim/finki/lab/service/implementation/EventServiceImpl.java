@@ -21,48 +21,48 @@ public class EventServiceImpl implements EventService {
                 this.events = events;
                 this.locations = locations;
 
-                this.events.createEvent(
+                this.events.save(
                                 new Event("Graduation Party", "The best grad party ever!", 7.0,
                                                 this.locations.findById(1L).get(),
                                                 200L));
 
-                this.events.createEvent(new Event("Music Festival", "An unforgettable night of music and fun!", 10.0,
+                this.events.save(new Event("Music Festival", "An unforgettable night of music and fun!", 10.0,
                                 this.locations.findById(2L).get(),
                                 200L));
 
-                this.events.createEvent(new Event("Food Tasting", "Explore exotic flavors from around the world!", 5.0,
+                this.events.save(new Event("Food Tasting", "Explore exotic flavors from around the world!", 5.0,
                                 this.locations.findById(3L).get(),
                                 200L));
 
-                this.events.createEvent(new Event("Tech Conference", "Insights from the world of innovation.", 8.5,
+                this.events.save(new Event("Tech Conference", "Insights from the world of innovation.", 8.5,
                                 this.locations.findById(4L).get(),
                                 200L));
 
-                this.events.createEvent(
+                this.events.save(
                                 new Event("Art Exhibit", "A journey through modern art.", 8.0,
                                                 this.locations.findById(5L).get(),
                                                 200L));
 
-                this.events.createEvent(
+                this.events.save(
                                 new Event("Charity Gala", "Join us for a night of giving back.", 9.2,
                                                 this.locations.findById(2L).get(),
                                                 200L));
 
-                this.events.createEvent(
+                this.events.save(
                                 new Event("Beach Clean-up", "Make a difference for our environment.", 3.0,
                                                 this.locations.findById(1L).get(),
                                                 200L));
 
-                this.events.createEvent(
+                this.events.save(
                                 new Event("Comedy Night", "Laugh out loud with top comedians.", 7.0,
                                                 this.locations.findById(4L).get(),
                                                 200L));
 
-                this.events.createEvent(new Event("Book Launch", "Celebrating a new release by a top author.", 6.0,
+                this.events.save(new Event("Book Launch", "Celebrating a new release by a top author.", 6.0,
                                 this.locations.findById(3L).get(),
                                 200L));
 
-                this.events.createEvent(
+                this.events.save(
                                 new Event("Yoga Retreat", "Find peace and relaxation.", 9.0,
                                                 this.locations.findById(5L).get(),
                                                 200L));
@@ -72,7 +72,7 @@ public class EventServiceImpl implements EventService {
         @Override
         public Event createEvent(String name, String description, Double popularityScore, Location location,
                         Long numCards) {
-                return this.events.createEvent(new Event(name, description, popularityScore, location, numCards));
+                return this.events.save(new Event(name, description, popularityScore, location, numCards));
         }
 
         @Override
@@ -87,19 +87,21 @@ public class EventServiceImpl implements EventService {
 
         @Override
         public boolean removeEvent(Long id) {
-                return this.events.removeEvent(id);
+                this.events.deleteById(id);
+                return true;
         }
 
-        @Override
-        public List<Event> searchEvents(String text) {
-                return this.events.searchEvents(text);
-        }
+        // @Override
+        // public List<Event> searchEvents(String text) {
+        // return this.events.searchEvents(text);
+        // }
 
-        @Override
-        public Event updateEvent(Long id, String name, String description, Double popularityScore, Location location,
-                        Long numCards) {
-                return this.events.updateEvent(
-                                id, name, description, popularityScore, location, numCards);
-        }
+        // @Override
+        // public Event updateEvent(Long id, String name, String description, Double
+        // popularityScore, Location location,
+        // Long numCards) {
+        // return this.events.updateEvent(
+        // id, name, description, popularityScore, location, numCards);
+        // }
 
 }

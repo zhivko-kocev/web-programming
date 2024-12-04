@@ -1,14 +1,23 @@
 package mk.ukim.finki.lab.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
-import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 @Data
+@Entity
+@NoArgsConstructor
 public class Location {
 
-    private static Long ID_CNT = 0L;
-
-    @Generated
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -16,16 +25,14 @@ public class Location {
     private String description;
     private Long capacity;
 
-    public Location(
-            String name,
-            String address,
-            Long capacity,
-            String description) {
+    @OneToMany(mappedBy = "location")
+    private List<Event> events = new ArrayList<>();
 
+    public Location(String name, String address, Long capacity, String description) {
         this.name = name;
         this.address = address;
-        this.capacity = capacity;
         this.description = description;
-        this.id = ++ID_CNT;
+        this.capacity = capacity;
+        // this.events = new ArrayList<>();
     }
 }

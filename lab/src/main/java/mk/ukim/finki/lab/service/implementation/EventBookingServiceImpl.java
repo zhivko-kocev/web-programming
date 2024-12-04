@@ -33,18 +33,19 @@ public class EventBookingServiceImpl implements EventBookingService {
     public EventBooking placeBooking(Event event, String attendeeName, String attendeeAddress,
             Long numberOfTickets) {
 
-        return this.bookings.placeBooking(
+        return this.bookings.save(
                 new EventBooking(event, attendeeName, attendeeAddress, numberOfTickets));
     }
 
     @Override
     public boolean removeBooking(Long id) {
-        return this.bookings.removeBooking(id);
+        this.bookings.deleteById(id);
+        return true;
     }
 
-    @Override
-    public List<EventBooking> searchBookings(String text) {
-        return this.bookings.searchBookings(text);
-    }
+    // @Override
+    // public List<EventBooking> searchBookings(String text) {
+    // return this.bookings.findAll(text);
+    // }
 
 }
