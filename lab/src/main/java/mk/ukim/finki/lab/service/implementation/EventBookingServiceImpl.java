@@ -43,9 +43,9 @@ public class EventBookingServiceImpl implements EventBookingService {
         return true;
     }
 
-    // @Override
-    // public List<EventBooking> searchBookings(String text) {
-    // return this.bookings.findAll(text);
-    // }
+    @Override
+    public List<EventBooking> searchBookings(String text) {
+        return this.bookings.findAll().stream().filter(book -> book.getAttendeeName().contains(text)).toList();
+    }
 
 }

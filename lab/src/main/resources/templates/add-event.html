@@ -22,9 +22,11 @@
         
         <h2>Location:</h2>
         <select name="locationId">
+            >
             <option th:each="location : ${locations}" 
-                    th:value="${event != null} ? ${event.location.id} : ${location.id}" 
-                    th:text="${location.address + ', ' + location.name + ' - ' + location.capacity + ' capacity'}">
+                    th:value="${event != null} ? ${location.id} : ${location.id}" 
+                    th:text="${location.address + ', ' + location.name + ' - ' + location.capacity + ' capacity'}"
+                    th:selected="${event != null} ? ${event.location.id} == ${location.id} : false">
             </option>
         </select>
         <input type="hidden" th:value="${update != null}? ${true}:${false}" name="update">

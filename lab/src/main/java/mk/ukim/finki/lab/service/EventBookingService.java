@@ -16,5 +16,5 @@ public interface EventBookingService {
 
     boolean removeBooking(Long id);
 
-    // List<EventBooking> searchBookings(String text);
+    List<EventBooking> searchBookings(String text);
 }

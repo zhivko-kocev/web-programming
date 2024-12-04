@@ -33,7 +33,7 @@ public class EventController {
             Model model) {
 
         model.addAttribute("events",
-                (text == null || text.isEmpty()) ? this.events.findAll() : this.events.findAll());
+                (text == null || text.isEmpty()) ? this.events.findAll() : this.events.searchEvents(text));
 
         model.addAttribute("error", error != null ? true : false);
 
@@ -62,11 +62,11 @@ public class EventController {
 
         Location location = this.locations.findById(locationId).get();
 
-        // if (update) {
-        // this.events.updateEvent(id, name, description, popularityScore, location,
-        // numCards);
-        // return "redirect:/events";
-        // }
+        if (update) {
+            this.events.updateEvent(id, name, description, popularityScore, location,
+                    numCards);
+            return "redirect:/events";
+        }
 
         this.events.createEvent(name, description, popularityScore, location, numCards);
 

@@ -41,11 +41,10 @@ public class EventBookingController {
 
         model.addAttribute(
                 "bookings",
-                (text == null || text.isEmpty()) ? this.bookings.findAll() : this.bookings.findAll());
+                (text == null || text.isEmpty()) ? this.bookings.findAll() : this.bookings.searchBookings(text));
 
         if (booking == null) {
             return "bookings";
-
         }
 
         model.addAttribute("tickets", booking.getNumberOfTickets());

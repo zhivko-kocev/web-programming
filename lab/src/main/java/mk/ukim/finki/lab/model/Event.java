@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Table(name = "EventT")
 @NoArgsConstructor
 public class Event {
 

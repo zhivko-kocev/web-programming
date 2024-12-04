@@ -33,6 +33,5 @@ public class Location {
         this.address = address;
         this.description = description;
         this.capacity = capacity;
-        // this.events = new ArrayList<>();
     }
 }
